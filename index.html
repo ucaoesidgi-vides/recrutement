@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Candidature au Club de développement web et applications de l'UCAO-UUT">
+  <title>Candidature — Club Dev UCAO-UUT</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+<header class="hero">
+  <div class="mark">&lt;/&gt;</div><p class="eyebrow">UCAO-UUT · RECRUTEMENT</p>
+  <h1>Club de développement<br><span>web & applications</span></h1>
+  <p class="intro">Apprendre, créer et construire ensemble. Les débutants sont les bienvenus.</p>
+  <div class="chips"><span>Web</span><span>Mobile</span><span>Innovation</span><span>Esprit d'équipe</span></div>
+</header>
+<main class="container">
+  <div class="notice"><strong>Pas besoin d'être déjà développeur.</strong><br>Nous évaluons surtout ta motivation, ta disponibilité et ton envie d'apprendre.</div>
+  <form id="applicationForm">
+    <section><div class="section-title"><b>01</b><div><h2>Informations personnelles</h2><p>Pour étudier ta candidature et te contacter.</p></div></div>
+      <div class="grid">
+        <label>Nom <em>*</em><input name="last_name" required maxlength="80" autocomplete="family-name"></label>
+        <label>Prénom(s) <em>*</em><input name="first_name" required maxlength="100" autocomplete="given-name"></label>
+        <label>Filière <em>*</em><input name="program" required maxlength="100" placeholder="Ex. DGI/(Nom de la filière)"></label>
+        <label>Niveau <em>*</em><select name="level" required><option value="">Choisir</option><option>Licence 1</option><option>Licence 2</option><option>Licence 3</option><option>Master 1</option><option>Master 2</option></select></label>
+        <label>E-mail <em>*</em><input name="email" type="email" required maxlength="150" autocomplete="email"></label>
+        <label>WhatsApp <em>*</em><input name="whatsapp" type="tel" maxlength="30" autocomplete="tel" placeholder="+228 ..."></label>
+      </div>
+    </section>
+    <section><div class="section-title"><b>02</b><div><h2>Motivation</h2><p>Réponds sincèrement, même si tu débutes.</p></div></div>
+      <label>Pourquoi veux-tu rejoindre le club ? <em>*</em><textarea name="motivation" required minlength="20" maxlength="1200" rows="4" placeholder="20 caractères minimum"></textarea></label>
+      <label>Qu'aimerais-tu apprendre ou réaliser ? <em>*</em><textarea name="goals" required minlength="10" maxlength="800" rows="3"></textarea></label>
+      <fieldset><legend>Ton expérience <em>*</em></legend>
+        <label class="choice"><input type="radio" name="experience" value="Débutant complet" required> Je débute complètement</label>
+        <label class="choice"><input type="radio" name="experience" value="Quelques notions"> J'ai quelques notions</label>
+        <label class="choice"><input type="radio" name="experience" value="Déjà réalisé un projet"> J'ai déjà réalisé un projet</label>
+      </fieldset>
+    </section>
+    <section><div class="section-title"><b>03</b><div><h2>Disponibilité</h2><p>Pour organiser les activités du club.</p></div></div>
+      <fieldset><legend>Temps disponible par semaine <em>*</em></legend>
+        <label class="choice"><input type="radio" name="hours" value="1 à 2 heures" required> 1 à 2 heures</label>
+        <label class="choice"><input type="radio" name="hours" value="3 à 5 heures"> 3 à 5 heures</label>
+        <label class="choice"><input type="radio" name="hours" value="6 heures ou plus"> 6 heures ou plus</label>
+      </fieldset>
+      <label>Moments généralement disponibles <em>*</em><select name="availability" required><option value="">Choisir</option><option>En semaine</option><option>Le week-end</option><option>En semaine et le week-end</option><option>Selon mon emploi du temps</option></select></label>
+      <fieldset><legend>Prêt(e) à participer aux réunions et à travailler en équipe ? <em>*</em></legend>
+        <label class="choice"><input type="radio" name="teamwork" value="Oui" required> Oui</label>
+        <label class="choice"><input type="radio" name="teamwork" value="À discuter selon les horaires"> À discuter selon les horaires</label>
+      </fieldset>
+    </section>
+    <section><div class="section-title"><b>04</b><div><h2>Engagement et confidentialité</h2><p>Les données ne sont accessibles qu'aux responsables autorisés.</p></div></div>
+      <label class="choice"><input type="checkbox" name="rules" required> Je comprends que je devrai respecter le règlement du club, qui me sera communiqué. <em>*</em></label>
+      <label class="choice"><input type="checkbox" name="privacy" required> J'accepte que mes informations soient utilisées uniquement pour étudier ma candidature et me contacter à ce sujet. <em>*</em></label>
+      <p class="privacy">Responsable de la collecte : le bureau du Club de développement web et applications de l'UCAO-UUT. Les données ne doivent pas être publiées. Avant le lancement, le club doit définir une durée de conservation et un contact pour les demandes de rectification ou suppression.</p>
+      <!-- Honeypot anti-bot simple : ne pas supprimer; les vrais utilisateurs ne le voient pas. -->
+      <div class="hp" aria-hidden="true"><label>Laisser vide<input name="website" tabindex="-1" autocomplete="off"></label></div>
+    </section>
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+    <button class="submit" id="submitBtn" type="submit">Envoyer ma candidature <span>→</span></button>
+    <p class="fine">Les champs marqués * sont obligatoires. Une candidature ne garantit pas automatiquement l'admission.</p>
+  </form>
+  <footer>Club de développement web et applications · UCAO-UUT<br>Développeurs batissons un avenir numérique pour UCAO</footer>
+   <center><p><h2><var>Dev<b><em>Junior</em></b></var></h2></footer></p>
+</main>
+</body></html>
