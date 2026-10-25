@@ -17,6 +17,59 @@ function setupClient() {
 function safe(s) {
   return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
+
+// NOUVEAU : Fonction pour exporter la liste des recrues au format Excel (.xlsx)
+function exportToExcel() {
+  if (!allApplications.length) {
+    alert("Aucune candidature à exporter.");
+    return;
+  }
+
+  // Filtrer ou préparer l'ensemble des candidatures avec des en-têtes clairs
+  const exportData = allApplications.map(app => ({
+    "Date de dépôt": new Date(app.created_at).toLocaleString("fr-FR"),
+    "Nom": app.last_name,
+    "Prénom": app.first_name,
+    "Filière": app.program,
+    "Niveau": app.level,
+    "E-mail": app.email,
+    "WhatsApp": app.whatsapp || "Non renseigné",
+    "Statut": statusLabels[app.status] || app.status,
+    "Expérience": app.experience,
+    "Heures/Semaine": app.hours,
+    "Disponibilité": app.availability,
+    "Travail en équipe": app.teamwork,
+    "Motivation": app.motivation,
+    "Objectifs": app.goals
+  }));
+
+  // Génération du fichier Excel avec la librairie XLSX (SheetJS)
+  if (window.XLSX) {
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Recrues & Candidats");
+    
+    // Téléchargement du fichier
+    XLSX.writeFile(workbook, `recrues_club_dev_${new Date().toISOString().slice(0, 10)}.xlsx`);
+  } else {
+    // Fallback en CSV standard si la librairie CDN n'est pas chargée
+    let csvContent = "\uFEFF"; // BOM UTF-8
+    const headers = Object.keys(exportData[0]).join(";");
+    csvContent += headers + "\r\n";
+
+    exportData.forEach(row => {
+      const values = Object.values(row).map(val => `"${String(val).replace(/"/g, '""')}"`);
+      csvContent += values.join(";") + "\r\n";
+    });
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `recrues_club_dev_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+  }
+}
+
 function render() {
   const q = document.getElementById("search").value.trim().toLowerCase();
   const status = document.getElementById("statusFilter").value;
@@ -56,6 +109,10 @@ document.getElementById("loginForm").addEventListener("submit", async e => {
   loginCard.classList.add("hidden"); dashboard.classList.remove("hidden"); adminMessage.textContent=""; await loadApplications();
 });
 document.getElementById("logoutBtn").addEventListener("click", async()=>{await client.auth.signOut(); dashboard.classList.add("hidden");loginCard.classList.remove("hidden");});
+
+// NOUVEAU : Écouteur sur le bouton d'exportation
+document.getElementById("exportExcelBtn").addEventListener("click", exportToExcel);
+
 document.getElementById("search").addEventListener("input",render);
 document.getElementById("statusFilter").addEventListener("change",render);
 if (!setupClient()) msg("Configuration Supabase manquante : renseigne config.js.");
