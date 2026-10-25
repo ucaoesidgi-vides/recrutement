@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="icon" type="image/png" href="favicon.png">
 <title>Espace bureau — Club Dev UCAO-UUT</title><link rel="stylesheet" href="style.css">
+<!-- Ajout de la bibliothèque SheetJS (XLSX) pour l'export Excel -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script defer src="admin.js"></script></head>
 <body><header class="hero admin-hero"><p class="eyebrow">ACCÈS RÉSERVÉ</p><h1>Espace bureau<br><span>des candidatures</span></h1><p class="intro">Connecte-toi avec un compte administrateur autorisé.</p></header>
 <main class="container admin-container">
 <section class="admin-card" id="loginCard"><h2>Connexion</h2><form id="loginForm"><label>E-mail administrateur<input name="email" type="email" required autocomplete="username"></label><label>Mot de passe<input name="password" type="password" required autocomplete="current-password"></label><button class="submit" type="submit">Se connecter</button></form><div id="adminMessage" class="message" role="status"></div></section>
-<section class="admin-card hidden" id="dashboard"><div class="dash-top"><div><h2>Candidatures reçues</h2><p id="count">Chargement…</p></div><button id="logoutBtn" class="secondary">Déconnexion</button></div>
+<section class="admin-card hidden" id="dashboard">
+  <div class="dash-top">
+    <div><h2>Candidatures reçues</h2><p id="count">Chargement…</p></div>
+    <div class="action-buttons">
+      <!-- NOUVEAU : Bouton d'exportation Excel -->
+      <button id="exportExcelBtn" class="secondary export-btn">📥 Exporter Excel</button>
+      <button id="logoutBtn" class="secondary">Déconnexion</button>
+    </div>
+  </div>
 <div class="filters"><input id="search" placeholder="Rechercher nom, filière, e-mail…"><select id="statusFilter"><option value="">Tous les statuts</option><option value="new">Nouvelle</option><option value="reviewing">À examiner</option><option value="accepted">Retenue</option><option value="rejected">Non retenue</option></select></div>
 <div id="applications" class="applications"></div></section>
 <footer>Confidentiel — ne partage jamais cet espace ni les données des candidats.</footer></main></body></html>
